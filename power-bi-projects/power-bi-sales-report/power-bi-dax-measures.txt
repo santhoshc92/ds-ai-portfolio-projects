@@ -1,0 +1,54 @@
+Calculated Column:
+
+Parent_CC = IF(Customers_Lookup[TotalChildren]>0,"Yes","No")
+
+Age = DATEDIFF(Customers_Lookup[BirthDate],TODAY(),YEAR)
+
+DayOfWeek = WEEKDAY(Calendar_Lookup[Date],2) 
+
+Weekend = IF(OR(Calendar_Lookup[DayOfWeek]=6,Calendar_Lookup[DayOfWeek]=7),"Weekend","Weekday")
+
+Full_Name_CC = Customers_Lookup[Prefix]&" "&Customers_Lookup[FirstName]&"  "&Customers_Lookup[LastName] 
+
+ShortDay = UPPER(LEFT(Calendar_Lookup[Day Name],3)) 
+
+ShortMonth = UPPER(LEFT(Calendar_Lookup[Month Name],3))
+
+Price_Related = RELATED(Products_Lookup[ProductPrice]  
+
+Sales = AW_sales[OrderQuantity]*AW_sales[Price_Related]  
+==================================================================================================================================================
+ 
+Measure: 
+
+Total_Qty = SUM(AW_sales[OrderQuantity]
+
+Avg_Price = AVERAGE(Products_Lookup[ProductPrice])
+
+Quantity_Returned = SUM(Returns[ReturnQuantity])
+
+Total_Revenue = SUM(AW_sales[Sales])
+
+ReturnRate = DIVIDE([Quantity_Returned],[Total_Qty])
+
+Total_Order = DISTINCTCOUNT(AW_sales[OrderNumber])
+
+Bulk_Orders = CALCULATE([Total_Order],AW_sales[OrderQuantity]>1) 
+
+Weekend_Orders = CALCULATE([Total_Order],Calendar_Lookup[Weekend] = "Weekend")
+
+AllOrders=CALCULATE([Total_Order],all(AW_sales)) 
+
+% All Orders = [Total_Order]/[AllOrders]
+
+OverallAvgPrice = CALCULATE([Avg_Price],ALL(Products_Lookup))
+
+OrderTarget = [PrevMonthOrders]*1.1   
+
+Target_Returns = [PrevMonthReturns] 
+
+PrevMonthRev = CALCULATE([Total_revenue],DATEADD(Calendar_Lookup[Date],-1,MONTH))
+
+PrevMonthOrders = CALCULATE([Total_Order],DATEADD(Calendar_Lookup[Date],-1,MONTH))
+
+PrevMonthReturns = CALCULATE(Returns[Quantity_Returned],DATEADD(Calendar_Lookup[Date],-1,MONTH))
