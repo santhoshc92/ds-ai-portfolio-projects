@@ -10,6 +10,24 @@ The project is implemented using Microsoft SQL Server (SSMS) and covers beginner
 
 ---
 
+## Key Insights & Analysis
+
+- Analyzed food delivery platform data covering customers, restaurants, locations, ratings, and order behavior
+
+- Designed a normalized relational database with customer and location dimensions to support scalable analysis
+
+- Performed customer segmentation and location-based analysis to identify high-activity areas
+
+- Evaluated restaurant performance using ratings, order volume, delivery time, and average cost metrics
+
+- Identified top-rated and high-demand restaurants by cuisine and restaurant type
+
+- Analyzed order trends over time to uncover peak demand periods
+
+- Generated insights on delivery speed, customer demographics, and operational efficiency
+
+---
+
 ## **Dataset Information**
 
 The project uses multiple relational tables, including:
