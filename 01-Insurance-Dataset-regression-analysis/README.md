@@ -4,7 +4,17 @@
 
 This project focuses on predicting insurance charges based on customer demographics and medical history. Using exploratory data analysis (EDA), feature engineering, and multiple regression models, the goal is to build a robust predictive model to accurately estimate insurance charges for new customers.
 
-The dataset includes variables such as age, sex, BMI, smoking status, region, annual salary, hospital expenditure, past consultations, and claim amounts.
+The project also demonstrates cloud deployment workflows using Azure Machine Learning and Hugging Face Spaces.
+
+---
+
+## Objective
+
+- Analyze the insurance dataset to understand patterns, correlations, and key factors influencing insurance charges.
+
+- Build and evaluate multiple regression models in Jupyter Notebook to identify the most accurate and robust model.
+
+- Train and deploy the selected model using Azure Machine Learning or alternative cloud solutions for real-time predictions.
 
 ---
 
@@ -32,7 +42,7 @@ The dataset contains information about individuals and their medical expenses:
 
 ## Exploratory Data Analysis (EDA)
 
-- Categorical Features: sex, smoker, region, children
+- Categorical Features: sex, smoker, region, children 
 
 	Visualized using value_counts and count plots.
 
@@ -48,15 +58,13 @@ The dataset contains information about individuals and their medical expenses:
 
 ---
 
-## Categorical Encoding
+## Categorical Encoding and Feature Selection
 
-Applied Label Encoding for categorical variables.
+- Applied Label Encoding for categorical variables.
 
-## Feature Selection
+- Correlation analysis showed strong to moderate correlation of charges with: smoker, claim_amount, past_consultations, num_of_steps, hospital_expenditure, number_of_past_hospitalizations, annual_salary
 
-Correlation analysis showed strong to moderate correlation of charges with: smoker, claim_amount, past_consultations, num_of_steps, hospital_expenditure, number_of_past_hospitalizations, annual_salary
-
-Features such as age, sex, region, children, BMI were not used in the initial model due to low correlation with charges.
+- Features such as age, sex, region, children, BMI were not used in the initial model due to low correlation with charges.
 
 ---
 
@@ -83,7 +91,7 @@ Features such as age, sex, region, children, BMI were not used in the initial mo
 
 ---
 
-# Key Takeaways
+## Key Takeaways
 
 - All models performed well.
 
@@ -95,8 +103,45 @@ Features such as age, sex, region, children, BMI were not used in the initial mo
 
 ---
 
-### Technologies Used
+## Technologies Used
 
-- Python (Pandas, NumPy, Scikit-learn, Matplotlib, Seaborn)
+- Python: Pandas, NumPy, Scikit-learn, Matplotlib, Seaborn
 
 - Jupyter Notebook for development and visualization
+
+- Azure Machine Learning for cloud workflow
+
+- Hugging Face Spaces & Gradio for interactive deployment
+
+---
+
+## Azure ML Workflow
+
+- Created Resource Group, Workspace, and Compute Instance in Azure ML.
+
+- Built and trained regression model using Automated ML.
+
+---
+
+## Cloud Deployment Workaround
+
+Due to limitations in the Azure ML free trial, deployment of the model and generation of the endpoint/API key was not possible. As a workaround:
+
+- The regression model was trained in Jupyter Notebook and saved as a .pkl file.
+
+- The saved model was deployed on Hugging Face Spaces using Gradio for an interactive web interface.
+
+**Live Demo**: [Insurance Charges Prediction Live Demo](https://huggingface.co/spaces/santhoshc92/insurance-charges)
+
+
+This demonstrates:
+
+- Saving and reusing trained models for deployment.
+
+- Deploying ML models in a cloud-accessible interactive interface.
+
+---
+
+## Screenshots
+
+- All workflow screenshots, including Azure ML workspace and Hugging Face deployment, are compiled in the attached PDF: InsuranceCharges_AzureML_screenshots.pdf

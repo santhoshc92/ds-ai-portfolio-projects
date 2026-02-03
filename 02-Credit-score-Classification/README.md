@@ -2,13 +2,25 @@
 
 ## Problem Statement
 
-This project focuses on building a machine learning model to classify individuals’ credit scores into predefined categories (Poor, Standard, and Good) based on their financial and behavioral information. The goal is to provide accurate predictions that can assist financial institutions in assessing creditworthiness.
+This project focuses on predicting individuals’ credit scores (Poor, Standard, and Good) using financial, demographic, and behavioral data. The goal is to assist financial institutions in assessing creditworthiness by building a robust machine learning model.
+
+The project demonstrates end-to-end workflows, from data preprocessing and model development in Jupyter Notebook to model deployment using Azure Machine Learning Designer and interactive deployment on Hugging Face Spaces with Gradio.
 
 ---
 
+## Objective
+
+- Analyze the credit dataset to identify key factors influencing credit scores.
+
+- Build and evaluate multiple classification models in Jupyter Notebook to select the most accurate model.
+
+- Implement Azure ML Designer to build, train, and deploy the model for cloud-based real-time predictions.
+
+- Provide an interactive web interface for model predictions using Hugging Face Spaces.
+
 ## Dataset Explanation
 
-The dataset contains 100,000 records with financial, demographic, and behavioral features of customers. Key columns include:
+The dataset contains 100,000 records with financial, demographic, and behavioral features of customers.
 
 | Column Name              | Description                                                             |
 | ------------------------ | ----------------------------------------------------------------------- |
@@ -91,7 +103,7 @@ Several models were evaluated:
 
 | Model                                | Train Accuracy | Test Accuracy | Key Notes                                                                        |
 | ------------------------------------ | -------------- | ------------- | -------------------------------------------------------------------------------- |
-| Logistic Regression                  | 59.46%         | 59.18%        | Underfits, linear assumptions limit performance.                                 |
+| Logistic Regression                  | 59.46%         | 59.18%        | Underfitting, linear assumptions limit performance.                                 |
 | LDA + Logistic Regression            | 57.43%         | 56.95%        | Similar to LR, linear assumptions and skewed features limit performance.         |
 | Decision Tree (default)              | 100%           | 67%           | Severe overfitting observed.                                                     |
 | Decision Tree (hyperparameter tuned) | 67.51%         | 66.24%        | Hyperparameter tuning improved generalization.                                   |
@@ -107,25 +119,60 @@ Several models were evaluated:
 
 ## Conclusion
 
-- Linear models (Logistic Regression, LDA) underfit and perform poorly on the minority class.
+- Tree-based models (Decision Tree, Random Forest) outperform linear models.
 
-- Decision Trees perform better after tuning; bagging improves stability and reduces variance.
+- Hyperparameter-tuned Random Forest provides the most robust performance and minimal overfitting.
 
-- Random Forest shows the best overall performance, balancing accuracy, F1-score, and class-wise performance.
-
-- Bagging on Random Forest further stabilizes predictions but offers marginal improvement over the tuned Random Forest.
+- Bagging slightly stabilizes predictions but offers marginal improvement over tuned Random Forest.
 
 ---
 
-## Final Recommendation
+## Azure ML Designer Workflow
 
-The hyperparameter-tuned Random Forest is the best model for credit score classification, providing robust, balanced predictions with minimal overfitting and reliable performance across all credit score categories.
+- Created Resource Group, Workspace, and Compute Instance in Azure ML.
+
+- Built and trained the Random Forest classifier using Azure ML Designer modules.
+
+- Evaluated model performance using built-in evaluation metrics.
+
+- Prepared the trained model for deployment.
 
 ---
 
-## Tools & Technologies
+## Cloud Deployment Workaround
 
-- Python
-- Pandas, NumPy
-- Scikit-learn
-- Matplotlib, Seaborn
+Due to limitations of the Azure ML free trial, generating an endpoint/API key was not possible. Workaround:
+
+- Trained the classification model in Jupyter Notebook and saved it as a .pkl file.
+
+- Deployed the saved model on Hugging Face Spaces using Gradio to provide an interactive web interface.
+
+
+**Live Demo**: [Credit Score Classification Web App](https://huggingface.co/spaces/santhoshc92/credit-score)
+
+
+This demonstrates:
+
+- Saving and reusing trained ML models.
+
+- Deploying models in a cloud-accessible interactive interface.
+
+---
+
+## Technologies Used
+
+- Python: Pandas, NumPy, Scikit-learn
+
+- Visualization: Matplotlib, Seaborn
+
+- Development: Jupyter Notebook
+
+- Cloud ML: Azure Machine Learning Designer
+
+- Deployment: Hugging Face Spaces, Gradio
+
+---
+
+Screenshots
+
+- Azure ML Designer workspace, pipeline, and deployment screenshots are compiled in the attached PDF for portfolio presentation:'credit_score_Azure ML_screenshots.pdf'
