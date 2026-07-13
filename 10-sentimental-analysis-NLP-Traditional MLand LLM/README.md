@@ -1,129 +1,244 @@
-# Airline Tweet Sentiment Analysis – NLP & LLM Approaches
+# Airline Customer Feedback Intelligence using NLP and Retrieval-Augmented Generation (RAG)
 
 ## Project Overview
 
-This project analyzes public sentiment toward major U.S. airlines using Twitter data. We combine traditional Natural Language Processing (NLP) techniques, machine learning models, and Large Language Model (LLM)–based approaches to understand customer feedback, detect trends, and derive actionable insights for airlines
+This project analyzes airline customer feedback using two complementary approaches:
 
-### Objectives
+1. **Traditional NLP and Machine Learning Approach**
+   Performs sentiment classification using text preprocessing, Count Vectorization, and Random Forest to categorize customer feedback into positive, neutral, and negative sentiments.
 
-- Collect and preprocess airline-related tweets for analysis.
-- Perform sentiment classification into Positive, Neutral, and Negative categories using:
-	- Traditional ML models with Count Vectorizer
-	- Prompt-based LLMs (zero-shot and few-shot)
-- Compare model performance using evaluation metrics such as:
-	- Accuracy, Precision, Recall, F1-score
-	- Confusion matrices
-	- Exact match, consistency, hallucination, and prompt sensitivity
-- Visualize sentiment distributions across airlines to identify trends and pain points.
-- Provide recommendations for leveraging NLP tools in real-world airline customer feedback monitoring.
+2. **Generative AI Approach using Retrieval-Augmented Generation (RAG)**
+   Implements an intelligent feedback retrieval system using sentence embeddings, FAISS vector database, semantic search, and an open-source Large Language Model (FLAN-T5) to answer business questions using relevant customer feedback.
+
+The project demonstrates the evolution from traditional NLP-based text classification to modern Generative AI-powered information retrieval systems.
 
 ---
 
-## Data Exploration & Analysis
+# Project Objectives
 
-- Percentage of tweets by airline company
-- Distribution of sentiments across all tweets
-- Sentiment distribution per airline
-- Analysis of negative tweet reasons
-- Visualizations: Word Clouds, bar charts, and sentiment distribution plots
+* Analyze airline customer feedback using Natural Language Processing techniques.
+* Develop a machine learning-based sentiment classification pipeline.
+* Implement a Retrieval-Augmented Generation (RAG) workflow for natural language querying over customer feedback.
+* Generate sentence embeddings and store them in a vector database for semantic retrieval.
+* Enable context-aware responses using an open-source Large Language Model.
+* Compare the capabilities of traditional ML approaches and modern GenAI techniques for customer feedback analysis.
 
 ---
+
+# Approach 1: Traditional NLP & Machine Learning
+
+## Workflow
+
+```
+Raw Tweets
+    ↓
+Text Preprocessing
+    ↓
+Count Vectorizer
+    ↓
+Random Forest Classifier
+    ↓
+Sentiment Prediction
+```
 
 ## Data Preprocessing
 
-- Removal of HTML tags
-- Expansion of contractions
-- Removal of special characters, numbers, and punctuation
-- Unicode normalization
-- Tokenization and stopword removal
-- Lemmatization
+Applied NLP preprocessing techniques:
 
----
+* HTML tag removal
+* Contraction expansion
+* Special character and punctuation removal
+* Unicode normalization
+* Tokenization
+* Stopword removal
+* Lemmatization
 
-## Method 1: Traditional NLP & Machine Learning
+## Feature Extraction
 
-- Vectorization: Count Vectorizer
-- Model: Random Forest Classifier
-- Performance:
+### Count Vectorizer (Bag-of-Words)
 
-| Metric    | Value  |
+Converted processed tweets into numerical feature representations based on word frequency patterns.
+
+## Model
+
+### Random Forest Classifier
+
+Used to classify tweets into:
+
+* Positive
+* Neutral
+* Negative
+
+## Model Evaluation
+
+| Metric    | Score  |
 | --------- | ------ |
-| Accuracy  | 0.7623 |
-| Precision | 0.7536 |
-| Recall    | 0.7623 |
-| F1-score  | 0.7533 |
+| Accuracy  | 76.23% |
+| Precision | 75.36% |
+| Recall    | 76.23% |
+| F1-score  | 75.33% |
 
-### Insights
+Evaluation techniques:
 
-- Negative tweets dominate, often related to customer service issues.
-- Traditional ML provides a reliable baseline with interpretable results.
+* Classification Report
+* Confusion Matrix
 
----
+## Insights
 
-## Method 2: Prompt-Based LLM Sentiment Analysis
-
-### Approach 1: Text-Generation Prompting (FLAN-T5)
-
-- Zero-shot and few-shot sentiment classification using LangChain and Hugging Face Transformers.
-- Issue: The model was deterministic but biased toward one class.
-- Accuracy: ~19%
-- Hallucination Rate: 0%
-- Observation: High consistency, low accuracy — shows sensitivity to prompt design.
-
-### Approach 2: Task-Aligned Zero-Shot Classification (BART-MNLI)
-
-- Zero-shot classification pipeline for direct sentiment detection.
-- Accuracy: 72.5%
-- Observation: Switching to task-aligned models dramatically improves performance.
-
-## Key Insight
-
-- LLMs require proper task alignment; prompt-based generation may underperform for structured classification tasks.
+* Negative feedback represents a significant portion of airline customer opinions.
+* Common issues include delays, customer service problems, cancellations, and operational challenges.
+* Traditional ML provides a reliable and interpretable baseline for sentiment classification.
 
 ---
 
-## Comparative Analysis
+# Approach 2: Generative AI using RAG
 
-| Approach                              | Accuracy | Strengths                                          | Limitations                                            |
-| --------------------------------------| -------- | -------------------------------------------------- | ------------------------------------------------------ |
-| Traditional ML (Count Vectorizer + RF)| 76%      | Fast, interpretable, reliable baseline             | Needs feature engineering, less semantic understanding |
-| LLM-based (FLAN-T5)                   | 19%      | Flexible, zero/few-shot learning                   | Sensitive to prompts, biased if misaligned             |
-| LLM-based (BART-MNLI)                 | 72.5%    | Accurate, zero-shot ready, task-aligned            | Moderate computational cost                            |
+## Workflow
 
+```
+Customer Feedback
+        ↓
+Sentence Embeddings
+        ↓
+FAISS Vector Database
+        ↓
+Semantic Search
+        ↓
+Relevant Feedback Retrieval
+        ↓
+Prompt Construction
+        ↓
+LLM Generation
+        ↓
+Business Response
+```
 
----
+## Embedding Generation
 
-## Visualizations
+Used:
 
-- Word clouds for negative tweets
-- Sentiment distribution per airline
-- Comparative bar charts of model predictions
+* Sentence Transformer
+* Model: `all-MiniLM-L6-v2`
 
----
-
-## Conclusion
-
-- Most public feedback on U.S. airlines is negative, primarily due to customer service issues.
-- Traditional ML approaches are reliable baselines but require feature engineering.
-- Transformer-based and task-aligned LLMs achieve higher accuracy and semantic understanding.
-- Prompt-based text-generation LLMs need careful design and alignment with the task.
-
----
-
-## Recommendations
-
-- Airlines should monitor real-time feedback using NLP pipelines.
-- Focus on improving customer service and issue resolution.
-- Consider combining traditional ML and modern LLMs for better accuracy and scalability.
+Customer feedback text was converted into vector representations capturing semantic meaning.
 
 ---
 
-## Technologies & Libraries
+## Vector Database
 
-- Python
-- Pandas, NumPy, Matplotlib, Seaborn
-- NLTK, BeautifulSoup, Contractions
-- Scikit-learn (Random Forest, TF-IDF)
-- Hugging Face Transformers (BART-MNLI, FLAN-T5)
-- LangChain (LLM prompting)
+Implemented:
 
+* FAISS (Facebook AI Similarity Search)
+
+Purpose:
+
+* Store text embeddings.
+* Perform efficient similarity-based retrieval.
+
+---
+
+## Semantic Search
+
+The system converts user queries into embeddings and retrieves the most relevant customer feedback based on contextual similarity.
+
+Example:
+
+Query:
+
+```
+Passengers complaining about baggage
+```
+
+Retrieved feedback:
+
+```
+Lost luggage
+Delayed baggage
+Missing suitcase
+```
+
+---
+
+## Retrieval-Augmented Generation (RAG)
+
+The retrieved customer feedback is provided as context to an open-source LLM.
+
+Process:
+
+```
+User Question
+      ↓
+Semantic Search
+      ↓
+Relevant Feedback
+      ↓
+Prompt Template
+      ↓
+FLAN-T5 LLM
+      ↓
+Generated Business Summary
+```
+
+## Large Language Model
+
+Used:
+
+* Google FLAN-T5 Base
+
+Purpose:
+
+* Generate contextual responses based only on retrieved customer feedback.
+
+---
+
+# Key Insights from RAG Implementation
+
+* Semantic search retrieves relevant feedback based on meaning rather than exact keywords.
+* Vector embeddings enable efficient similarity-based information retrieval.
+* RAG reduces unsupported responses by grounding LLM outputs using retrieved customer feedback.
+* LLMs can transform unstructured customer feedback into concise business summaries.
+
+---
+
+# Technologies & Libraries
+
+## Programming
+
+* Python
+
+## Data Processing
+
+* Pandas
+* NumPy
+
+## NLP
+
+* NLTK
+* BeautifulSoup
+* Sentence Transformers
+
+## Machine Learning
+
+* Scikit-learn
+* Count Vectorizer
+* Random Forest
+
+## Generative AI
+
+* Hugging Face Transformers
+* FLAN-T5
+* FAISS Vector Database
+* LangChain Prompt Templates
+
+## Visualization
+
+* Matplotlib
+* Seaborn
+
+---
+
+# Conclusion
+
+This project demonstrates both traditional and modern approaches for airline customer feedback intelligence. The machine learning pipeline provides reliable sentiment classification using interpretable NLP techniques, while the RAG pipeline extends the system by enabling semantic search and natural language question answering using embeddings, vector databases, and Large Language Models.
+
+Together, these approaches demonstrate the practical application of NLP and Generative AI techniques for extracting insights from unstructured customer feedback.
